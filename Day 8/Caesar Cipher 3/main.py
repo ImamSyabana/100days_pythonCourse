@@ -1,5 +1,6 @@
 # TODO-1: Import and print the logo from art.py when the program starts.
-
+import art
+print(art.logo)
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -7,26 +8,50 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 
 
 def caesar(original_text, shift_amount, encode_or_decode):
-    output_text = ""
+    output = ""
+    for x in range(len(original_text)):
 
-    for letter in original_text:
-        if encode_or_decode == "decode":
-            shift_amount *= -1
+        if original_text[x].isalpha() == True:
 
-        shifted_position = alphabet.index(letter) + shift_amount
-        shifted_position %= len(alphabet)
-        output_text += alphabet[shifted_position]
-    print(f"Here is the {encode_or_decode}d result: {output_text}")
+            idx = alphabet.index(text[x])
+
+            if encode_or_decode == "encode":
+                encIdx = idx + abs(shift)
+                if encIdx > 25:
+                    encIdx = encIdx % 26  # 25 - 1
+
+            elif encode_or_decode == "decode":
+                encIdx = idx - abs(shift)
+                if encIdx < 0:
+                    encIdx = encIdx % 26
+
+            encChar = alphabet[encIdx]
+            output = output + encChar
+
+        elif original_text[x].isalpha() == False:
+            output = output + original_text[x]
+
+    print(f"Here is the {encode_or_decode}d result: {output}")
+    return output
 
 
 # TODO-3: Can you figure out a way to restart the cipher program?
 
 
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
 
-caesar(original_text=text, shift_amount=shift, encode_or_decode=direction)
+continueRun = True
+while(continueRun == True):
+
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+
+    caesar(original_text=text, shift_amount=shift, encode_or_decode=direction)
+    restart = input("Type 'yes' if you want to go again. Otherwise, type 'no'. \n")
+    if restart.lower() == "yes":
+        continueRun = True
+    elif restart.lower() == "no":
+        continueRun = False
 
 
 

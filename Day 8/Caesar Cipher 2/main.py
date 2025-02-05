@@ -9,9 +9,6 @@ shift = int(input("Type the shift number:\n"))
 
 def decrypt(decryptTxt , nShift):
 
-
-
-
 # TODO-2: Inside the 'decrypt()' function, shift each letter of the 'original_text' *backwards* in the alphabet
 #  by the shift amount and print the decrypted text.
     output = ""
@@ -19,10 +16,36 @@ def decrypt(decryptTxt , nShift):
         idx = alphabet.index(decryptTxt[x])
         encIdx = idx - abs(nShift)
         if encIdx < 0:
+            encIdx = encIdx % 26
+        normChar = alphabet[encIdx]
+        output = output + normChar
 
+
+    print(output)
+    return output
 
 # TODO-3: Combine the 'encrypt()' and 'decrypt()' functions into one function called 'caesar()'.
 #  Use the value of the user chosen 'direction' variable to determine which functionality to use.
+def caesar(direction, text, shift):
+    output = ""
+    for x in range(len(text)):
+        idx = alphabet.index(text[x])
+
+        if direction == "encode":
+            encIdx = idx + abs(shift)
+            if encIdx > 25:
+                encIdx = encIdx % 26 # 25 - 1
+
+        elif direction == "decode":
+            encIdx = idx - abs(shift)
+            if encIdx < 0:
+                encIdx = encIdx % 26
+
+        encChar = alphabet[encIdx]
+        output = output + encChar
+
+    print(output)
+    return output
 
 
 def encrypt(ogText, nShift):
@@ -38,7 +61,6 @@ def encrypt(ogText, nShift):
     print(output)
     return output
 
-encrypt(ogText=text, nShift=shift)
 
-
+caesar(direction = direction,  text=text, shift=shift)
 
