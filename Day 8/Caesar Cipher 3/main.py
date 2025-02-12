@@ -13,7 +13,7 @@ def caesar(original_text, shift_amount, encode_or_decode):
 
         if original_text[x].isalpha() == True:
 
-            idx = alphabet.index(text[x])
+            idx = alphabet.index(original_text[x])
 
             if encode_or_decode == "encode":
                 encIdx = idx + abs(shift)
