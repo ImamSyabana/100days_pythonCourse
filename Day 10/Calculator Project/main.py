@@ -18,20 +18,16 @@ opsDic = {
     "/" : divide
 }
 
-test = {
-    "wew" : 21
-}
-
 import art
 
 print(art.logo)
 
 # terakhir bikin kode kalkulasi make def yang ada di dic
-isCalcs = True
+
 
 # dibikin jadi fungsi aja
 
-def inputanKalkulasi():
+def inputanKalkulasiAwal():
     n1 = int(input("What is the first number?: "))
     for x in opsDic:
         print(x)
@@ -58,6 +54,14 @@ def operasiBaru (n1, n2, ops):
 
     return hasil
 
+def inputanKalkulasiLanjutan():
+    for x in opsDic:
+        print(x)
+    ops = str(input("Pick an operator"))
+    n2 = int(input("What is the second number?: "))
+
+    return n2, ops
+
 def operasiLanjutan (hasil, n2, ops):
     if ops == "+":
         hasilLanjut = opsDic['+'](hasil, n2)
@@ -74,24 +78,34 @@ def operasiLanjutan (hasil, n2, ops):
     else:
         print("Unknown operator")
 
-    return hasil
+    return hasilLanjut # ini adalah biang masalahnya dari tadi
 
 
+n1, n2, ops = inputanKalkulasiAwal()
 
+hasil = operasiBaru(n1, n2, ops)
 
+isCalcs = True
 
 while isCalcs == True:
-
-    inputanKalkulasi()
-
-    operasiBaru(inputanKalkulasi())
-
-
-    isCont = str(input("Type 'y' to continue calculating with {result}, ot type 'n' to start a new calculation: ". format(result = hasil )))
+    isCont = (input("Type 'y' to continue calculating with {result}, ot type 'n' to start a new calculation: ". format(result = hasil )))
     if isCont == "y":
-        isCalcs == True
+        n2, ops = inputanKalkulasiLanjutan()
+        hasil = operasiLanjutan(hasil, n2, ops)
+        if hasil is None:
+            break
+
+
     elif isCont =="n":
-        isCalcs == False
+        n1, n2, ops= inputanKalkulasiAwal()
+        hasil = operasiBaru(n1, n2, ops)
+        if hasil is None:
+            break
+
+    else:
+        print("Invalid input, please type 'y' or 'n'")
+
+
 
 
 
